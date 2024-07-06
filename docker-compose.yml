@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-       - ./postgres/db:/var/lib/postgresql/data # mirror database here in folder postgres/data
+       - ./postgres/db:/var/lib/postgresql/data # mirror database here in folder postgres/db
     restart: always
     expose:
       - 5432
