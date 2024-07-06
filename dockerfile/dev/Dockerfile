@@ -1,5 +1,4 @@
-FROM python:latest
-
+FROM python:3.9
 LABEL maintainer="hamidreza"
 
 ENV PYTHONUNBUFFERED=1

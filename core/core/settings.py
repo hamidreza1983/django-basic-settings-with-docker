@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from decouple import config
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-en7=u%71qutq%cnf^b*k(v_!#(riihf+t3ta$(s37nzeadjqe$'
+SECRET_KEY = config('SECRET_KEY', default='test')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", cast=bool, default=True)
+DEBUG = config('DEBUG', cast=bool, default=True)
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -82,11 +83,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'postgres',
-       'USER': 'postgres',
-       'PASSWORD': 'postgres',
-       'HOST': 'db',
-       'PORT': 5432,
+       'NAME': config('DBNAME', default='postgres'),
+       'USER': config('DBUSER', default='postgres'),
+       'PASSWORD': config('DBPASSWORD', default='postgres'),
+       'HOST': config('DBHOST', default='db'),
+       'PORT': config('DBPORT', cast=int, default=5432),
    }
 }
 
@@ -126,8 +127,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR/'/static'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR/'media'
 
+STATICFILES_DIRS = [
+    BASE_DIR/'static'
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST', default="smtp4dev")
+EMAIL_PORT = config('EMAIL_PORT', cast=int, default=25)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=False)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default="")
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default="")
