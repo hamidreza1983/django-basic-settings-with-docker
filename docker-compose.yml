@@ -30,6 +30,8 @@ services:
       - 8000:8000
     environment:
       DEBUG: True
+    env_file:
+      - ./env/dev/.env
     restart: always
     depends_on:
       - db
