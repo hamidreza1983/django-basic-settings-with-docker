@@ -2,4 +2,4 @@
 basic settings for django DEV **
 docker container backend **
 postgersql for database **
-smtp4dev **
+smtp4dev for testing email **
